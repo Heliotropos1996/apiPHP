@@ -69,6 +69,9 @@ $app->singleton(
 
 $app->configure('app');
 
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -80,9 +83,9 @@ $app->configure('app');
 |
 */
 
-// $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
-// ]);
+//$app->middleware([
+//App\Http\Middleware\ExampleMiddleware::class
+//]);
 
 // Enable auth middleware (shipped with Lumen)
 $app->routeMiddleware([
@@ -101,19 +104,18 @@ $app->routeMiddleware([
 */
 
 //$app->register(App\Providers\AppServiceProvider::class);
-//$app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 //$app->register(App\Providers\EventServiceProvider::class);
 
 
 //$app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 
 
-//Rompe el proyecto porque 
-
+//Rompe el proyecto
 //$app->register(Laravel\Passport\PassportServiceProvider::class);
+//$app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
+$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 
-
-$app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 
 
 

@@ -17,7 +17,21 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+$router->group(["middleware" => "auth"], function () use ($router) {
+
+    /*
+        * (path, controller@method)
+        */
+    $router->get("/ruta", function () use ($router) {
+        return "accediste";
+    });
+    $router->post("register", "AuthController@register");
+    $router->post("login", "AuthController@login");
+});
+
 $router->group(["prefix" => "api/v1"], function () use ($router) {
+
+
 
     $router->group(["prefix" => "users"], function () use ($router) {
 

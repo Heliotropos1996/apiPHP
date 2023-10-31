@@ -22,18 +22,22 @@ return new class extends Migration
             $table->string('document_type', 10);
             $table->string('document_number', 20);
             $table->string('email', 255)->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 255);
+            $table->rememberToken('token');
             $table->string('phone', 20);
             $table->timestamps();
-            $table->softDeletes(); 
+            $table->softDeletes();
         });
     }
+
+    
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('users');
     }
 };

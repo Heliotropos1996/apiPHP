@@ -10,10 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Lumen\Auth\Authorizable;
 use Laravel\Passport\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 
-class User extends Model implements AuthenticatableContract, AuthorizableContract
+class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
-    use Authenticatable, Authorizable, HasFactory, SoftDeletes, HasApiTokens;
+    use Authenticatable, Authorizable, HasFactory, SoftDeletes, HasApiTokens, AuthenticableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +26,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'firstname',
         'lastname',
         'document_type',
-        'document_number', 
+        'document_number',
         'email',
         'password',
         'phone',
@@ -40,4 +42,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey(); // En este caso, se usa el campo 'id' del usuario como identificador único.
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }
